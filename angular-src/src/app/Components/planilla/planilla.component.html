@@ -1,0 +1,180 @@
+<!-- ############################################################################################ -->
+<!-- ########################################## BODY ############################################ -->
+<!-- ############################################################################################ -->
+
+<!-- ########################################## INGRESAR PLANILLA ############################## -->
+
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+  <a class="btn-floating btn-large #b71c1c red darken-4" (click)="atras()">
+    <i class="large material-icons">arrow_back</i>
+  </a>
+</div>
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <form (submit)="PlanillaSubmit()" class="col s12" id="FormAgregar">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="dni" type="text" [(ngModel)]="dni" name="dni" class="validate" #inputDNI>
+          <label for="dni" #LabelDNI>DNI</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="nombre" type="text" [(ngModel)]="nombre" name="nombre" class="validate" #inputNombre>
+          <label for="nombre" #LabelNombre>Nombre</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="apellidos" type="text" [(ngModel)]="apellidos" name="apellidos" class="validate" #inputApellidos>
+          <label for="apellidos" #LabelApellidos>Apellidos</label>
+        </div>
+        <div class="input-field col s12">
+          <select materialize="material_select" [(ngModel)]="puesto" name="puesto" id="puesto">
+            <option value="" disabled selected>Puesto</option>
+            <option value="Contratista">Contratista</option>
+            <option value="Maestro de Obras">Maestro de Obras</option>
+            <option value="Peon">Peon</option>
+            <option value="Operario Calificado">Operario Calificado</option>
+            <option value="Operario">Operario</option>
+            <option value="Ayudante">Ayudante</option>
+          </select>
+        </div>
+        <div class="input-field col s12">
+          <input (keypress)="Only_Numbers($event)" id="telefono" type="text" [(ngModel)]="telefono" name="telefono" class="validate"
+            #inputTelefono>
+          <label for="telefono" #LabelTelefono>Telefono</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="fechaEntrada" type="text" [(ngModel)]="fechaEntrada" name="fechaEntrada" class="datepicker">
+          <label for="fechaEntrada" class="active" #LabelFechaEntrada>Fecha Entrada</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="fechaSalida" type="text" [(ngModel)]="fechaSalida" name="fechaSalida" class="datepicker">
+          <label for="fechaSalida" class="active" #LabelFechaSalida>Fecha Salida (Opcional)</label>
+        </div>
+        <div class="input-field col s12">
+          <select materialize="material_select" [(ngModel)]="tipoSalario" name="tipoSalario" id="tipoSalario">
+            <option value="" disabled selected>Tipo de salario</option>
+            <option value="Salario Mensual">Salario Mensual</option>
+            <option value="Salario Quincenal">Salario Quincenal</option>
+            <option value="Salario Semanal">Salario Semanal</option>
+          </select>
+        </div>
+        <div class="input-field col s12">
+          <input id="montoSalario" type="text" [(ngModel)]="montoSalario" name="montoSalario" class="validate" #inputMontoSalario>
+          <label for="montoSalario" #LabelMontoSalario>Monto del Salario</label>
+        </div>
+        <div class="right">
+            <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+            <input type="submit" class="btn #0d47a1 blue darken-4 waves-effect waves-blue" value="Guardar">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ########################################## ELIMINAR EMPLEADO ############################### -->
+
+<div id="modal2" class="modal">
+  <div class="modal-content">
+      <h4>¿Desea eliminar este Empleado?</h4>
+      <h5>si confirma esta acción el empleado se borrara permanentemente</h5>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="modal-action modal-close btn #0d47a1 blue darken-4 waves-effect waves-blue" (click)="Eliminar()">Confirmar</a>
+  </div>
+</div>
+
+<!-- ########################################## DETALLES PLANILLA ################################# -->
+
+<div id="modal4" class="modal">
+  <div class="modal-content">
+    <blockquote>Detalles del Empleado</blockquote>
+    <ul class="collection" *ngFor="let v of detalles">
+      <li class="collection-item">
+        <strong>Documento Nacional de Identidad: </strong>{{v.dni}}</li>
+      <li class="collection-item">
+        <strong>Nombre: </strong> {{v.nombre}}</li>
+      <li class="collection-item">
+        <strong>Apellidos: </strong>{{v.apellidos}}</li>
+      <li class="collection-item">
+        <strong>Puesto: </strong>{{v.puesto}}</li>
+      <li class="collection-item">
+        <strong>Telefono: </strong>{{v.telefono}}</li>
+      <li class="collection-item">
+        <strong>Fecha de Entrada: </strong>{{v.fechaentrada}}</li>
+      <li class="collection-item">
+        <strong>Fecha de Salida: </strong>{{v.fechasalida}}</li>
+      <li class="collection-item">
+        <strong>Tipo de Salario: </strong>{{v.tiposalario}}</li>
+      <li class="collection-item">
+        <strong>Monto Salario: </strong>{{v.montosalario}}</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ########################################## BUSCAR EMPLEADO ################################# -->
+
+
+
+<!-- ########################################## GESTION DE PLANILLAS ################################# -->
+
+<div class="container">
+
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card #f5f5f5 grey lighten-4">
+        <div class="card-content ">
+          <span class="card-title">Gestión de planilla</span>
+          <div class="input-field col m6 offset-m5 s8">
+            <button type="button" label="Click" (click)="modal1()" class="#0d47a1 blue darken-4 btn">Agregar</button>
+          </div>
+          <!-- ########################################## BUSCAR  ################################# -->
+
+          <form id="filter" class="col s12">
+            <div class="row">
+              <div class="input-field col m8 offset-m2 s8">
+                <i class="material-icons prefix">search</i>
+                <input id="inputfilter" type="text" class="validate" [(ngModel)]="term" name="term" />
+                <label for="inputfilter">Buscar</label>
+              </div>
+            </div>
+          </form>
+
+          <table>
+            <thead class="centered">
+              <tr>
+                <td>Nombre del empleado</td>
+                <td>Detalles</td>
+                <td>Editar</td>
+                <td>Eliminar</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of ax | paginate: {itemsPerPage:5, currentPage: p} | filterPlanilla:term">
+                <td>{{v.nombre}}</td>
+
+                <td>
+                  <a class="waves-effect waves-light btn-flat" (click)="Detalles(v)">
+                    <i class="tiny material-icons left">visibility</i>
+                  </a>
+                </td>
+                <td>
+                  <a class="waves-effect waves-light btn-flat" (click)="Editar(v.dni)">
+                    <i class="tiny material-icons left">create</i>
+                  </a>
+                </td>
+                <td>
+                  <a class="waves-effect waves-light btn-flat" (click)="Confirmar_Eliminar(v.dni)">
+                    <i class="tiny material-icons left">delete</i>
+                  </a>
+                </td>
+                <!-- //////////////////////////////////////////////////// -->
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

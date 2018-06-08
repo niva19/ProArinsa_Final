@@ -1,0 +1,168 @@
+<div *ngIf="flag" class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+  <a class="btn-floating btn-large #0d47a1 red darken-4">
+    <i class="large material-icons">menu</i>
+  </a>
+  <ul>
+    <li (click)="atras()">
+      <a class="btn-floating #b71c1c red darken-4">
+        <i class="material-icons">arrow_back</i>
+      </a>
+    </li>
+    <li (click)="set_flag(false)">
+      <a class="btn-floating #1565c0 blue darken-3">
+        <i class="material-icons">check</i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="!flag" class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+  <a class="btn-floating btn-large #0d47a1 blue darken-4">
+    <i class="large material-icons">menu</i>
+  </a>
+  <ul>
+    <li (click)="set_flag(true)">
+      <a class="btn-floating red darken-4">
+        <i class="material-icons">cancel</i>
+      </a>
+    </li>
+    <li (click)="Confirmar_Eliminar()">
+      <a class="btn-floating red darken-1">
+        <i class="material-icons">delete_forever</i>
+      </a>
+    </li>
+    <li (click)="Confirmar_Descargar()">
+      <a class="btn-floating blue darken-1">
+        <i class="material-icons">file_download</i>
+      </a>
+    </li>
+    <li (click)="unselect_all()">
+      <a class="btn-floating red darken-3">
+        <i class="material-icons">check_box_outline_blank</i>
+      </a>
+    </li>
+    <li (click)="select_all()">
+      <a class="btn-floating blue darken-3">
+        <i class="material-icons">check_box</i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <div class="file-field input-field">
+      <div class="btn #2e7d32 green darken-3">
+        <span>Archivo</span>
+        <input #myInput type="file" multiple (change)="onChange($event)">
+      </div>
+      <div class="file-path-wrapper">
+        <input id="inputfile" class="file-path validate" type="text">
+      </div>
+    </div>
+    <div class="chip #ffffff white" *ngFor="let i of upload_files;">
+      <img [attr.src]="'assets/img/' + i.ext + '.png'" alt=""> {{i.name}}
+      <i class="close material-icons" (click)="delete_upload_file(i.name)">close</i>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red ">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 waves-effect waves-green " (click)="Enlazar_Archivos()">Guardar</a>
+  </div>
+</div>
+
+<div id="eliminar" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_eliminar"></h4>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 modal-action modal-close waves-effect waves-blue" (click)="Desenlazar_Archivo()">Aceptar</a>
+  </div>
+</div>
+
+<div id="descargando_archivo" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_barra_descarga"></h4>
+    <br>
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
+  </div>
+</div>
+
+<div id="descargar" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_descarga"></h4>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 modal-action modal-close waves-effect waves-blue" (click)="Descargar_Archivo()">Aceptar</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card #f5f5f5 grey lighten-4">
+        <div class="card-content ">
+          <nav class="flat">
+            <div class="nav-wrapper">
+              <div class="col s12 #455a64 blue-grey darken-2">
+                <a [routerLink]="['/cliente']" class="breadcrumb">Clientes</a>
+                <a [routerLink]="['/cliente_archivos']" class="breadcrumb">Archivos</a>
+              </div>
+            </div>
+          </nav>
+          <br>
+          <div class="input-field col m6 offset-m5 s8">
+            <button type="button" label="Click" (click)="modal1()" class="#0d47a1 blue darken-4 btn">Guardar</button>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <form id="filter" class="col s12">
+                <div class="row">
+                  <div class="input-field col m8 offset-m2 s8">
+                    <i class="material-icons prefix">search</i>
+                    <input id="inputfilter" type="text" class="validate" [(ngModel)]="term" name="term" />
+                    <label for="inputfilter">Buscar</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <div class="row">
+            <ul class="collection" *ngFor="let i of archivos | filterClienteArchivos:term let j = index">
+              <li class="collection-item avatar">
+                <img [attr.src]="'assets/img/' + i.extension + '.png'" alt="" class="circle">
+                <span class="title" [attr.id]="'t'+ j" (click)="mostar_editar_nombre(j)">{{i.nombre_archivo}}</span>
+
+                <span class="title" style="display: none" [attr.id]="'i'+ j">
+                  <input type="text" class="validate title" [attr.id]="'input'+j" [attr.value]="i.nombre" (blur)="editar_nombre(j, i)">
+                </span>
+
+                <div *ngIf="flag">
+                  <a class="secondary-content" (click)="Abrir_Archivo(i)" href="javascript:void(0)">
+                    <i class="material-icons black-text">open_in_new</i>
+                  </a>
+                </div>
+                <div *ngIf="!flag">
+                  <form action="#" class='secondary-content'>
+                    <p>
+                      <input class="chk" type="checkbox" [attr.id]="'checkbox'+ j" [attr.data-value]="i.nombre_archivo" />
+                      <label [attr.for]="'checkbox'+ j"></label>
+                    </p>
+                  </form>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

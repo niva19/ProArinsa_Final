@@ -1,0 +1,9 @@
+1 - npm install express-generator@4 -g
+2 - express node-postgres-promises
+3 - cd node-postgres-promises
+4 - npm install
+5 - npm start
+To check if correct
+shut down
+6 - npm install pg-promise@5 --save
+7 - npm install bluebird@3 --save

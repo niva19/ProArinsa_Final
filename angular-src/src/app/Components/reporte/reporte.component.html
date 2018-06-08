@@ -1,0 +1,65 @@
+<!-- ########################################## LIMPIAR REPORTE ############################### -->
+
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Limpiar reportes</h4>
+      <p>Realmente desea eliminar los reportes antiguos, solo se conservarán los del último mes.</p>
+    </div>
+    <div class="modal-footer" #modal1Footer>
+      <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Confirmar</a>
+    </div>
+  </div>
+  
+  <!-- ########################################## PRINCIPAL ################################# -->
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card #f5f5f5 grey lighten-4">
+        <div class="card-content ">
+          <span class="card-title">Historial de movimientos</span>
+
+          <form id="filter" class="col s12">
+            <div class="row">
+              <div class="input-field col m8 offset-m2 s8">
+                <i class="material-icons prefix">search</i>
+                <input id="inputfilter" type="text" class="validate" [(ngModel)]="term" name="term">
+                <label for="inputfilter">Buscar</label>
+              </div>
+            </div>
+          </form>
+
+          <table>
+            <thead class="centered">
+              <tr>
+                <td>Fecha</td>
+                <td>Hora</td>
+                <td>Nombre (dni)</td>
+                <td>Módulo</td>
+                <td>Acción</td>
+                <td>Alterado</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of ax | paginate: {itemsPerPage:5, currentPage: p} | filterReporte:term">
+                <td>{{v.fecha}}</td>
+                <td>{{v.hora}}</td>
+                <td>{{v.nombre}}</td>
+                <td>{{v.modulo}}</td>
+                <td>{{v.accion}}</td>
+                <td>{{v.alterado}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <div class="right-align">
+            <a class="waves-effect waves-light btn #0d47a1 blue darken-4 tooltipped" (click)="Confirmar_Limpiar()" data-position="bottom" data-tooltip="Conserva los últimos 30 días">
+              <i class="material-icons left ">delete</i>Limpiar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

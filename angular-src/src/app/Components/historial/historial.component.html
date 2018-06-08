@@ -1,0 +1,304 @@
+<div *ngIf="Anyone_checked()" class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+  <a class="btn-floating btn-large #0d47a1 blue darken-4">
+    <i class="large material-icons">menu</i>
+  </a>
+  <ul>
+    <li (click)="unselect_all()">
+      <a class="btn-floating red darken-3">
+        <i class="material-icons">highlight_off</i>
+      </a>
+    </li>
+    <li (click)="Confirmar_Eliminar()">
+      <a class="btn-floating red darken-1">
+        <i class="material-icons">delete_forever</i>
+      </a>
+    </li>
+    <li (click)="Confirmar_Recuperar()">
+      <a class="btn-floating blue darken-1">
+        <i class="material-icons">autorenew</i>
+      </a>
+    </li>
+    <li (click)="select_all()">
+      <a class="btn-floating blue darken-3">
+        <i class="material-icons">select_all</i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div id="eliminar_archivos_cliente" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_eliminar_archivos_cliente"></h4>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 modal-action modal-close waves-effect waves-green" (click)="Eliminar_Archivos_Cliente()">Aceptar</a>
+  </div>
+</div>
+
+<div id="eliminar_archivos_proyecto" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_eliminar_archivos_proyecto"></h4>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 modal-action modal-close waves-effect waves-green" (click)="Eliminar_Archivos_Proyecto()">Aceptar</a>
+  </div>
+</div>
+
+<div id="eliminar_carpetas" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_eliminar_carpetas"></h4>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 modal-action modal-close waves-effect waves-green" (click)="Eliminar_Carpetas()">Aceptar</a>
+  </div>
+</div>
+
+
+<div id="recuperar_archivos_cliente" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_recuperar_archivos_cliente"></h4>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 modal-action modal-close waves-effect waves-green" (click)="Recuperar_Archivos_Cliente()">Aceptar</a>
+  </div>
+</div>
+
+<div id="recuperar_archivos_proyecto" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_recuperar_archivos_proyecto"></h4>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 modal-action modal-close waves-effect waves-green" (click)="Recuperar_Archivos_Proyecto()">Aceptar</a>
+  </div>
+</div>
+
+<div id="recuperar_carpetas" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_recuperar_carpetas"></h4>
+  </div>
+  <div class="modal-footer">
+    <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+    <a class="btn #0d47a1 blue darken-4 modal-action modal-close waves-effect waves-green" (click)="Recuperar_Carpetas()">Aceptar</a>
+  </div>
+</div>
+
+<div id="remplazar_omitir_archivos_proyecto" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_remplazar_omitir_archivos_proyecto"></h4>
+    <ul class="collection with-header">
+      <li class="collection-item">
+        <div>Reemplazar archivo destino
+          <a href="javascript:void(0)" class="secondary-content">
+            <i class="material-icons" (click)="rem_or_omi_Archivos_proyecto('reemplazar')">send</i>
+          </a>
+        </div>
+      </li>
+      <li class="collection-item">
+        <div>Omitir este archivo
+          <a href="javascript:void(0)" class="secondary-content">
+            <i class="material-icons" (click)="rem_or_omi_Archivos_proyecto('omitir')">send</i>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="remplazar_omitir_archivos_cliente" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_remplazar_omitir_archivos_cliente"></h4>
+    <ul class="collection with-header">
+      <li class="collection-item">
+        <div>Reemplazar archivo destino
+          <a href="javascript:void(0)" class="secondary-content">
+            <i class="material-icons black-text" (click)="rem_or_omi_Archivos_Cliente('reemplazar')">forward</i>
+          </a>
+        </div>
+      </li>
+      <li class="collection-item">
+        <div>Omitir este archivo
+          <a href="javascript:void(0)" class="secondary-content">
+            <i class="material-icons black-text" (click)="rem_or_omi_Archivos_Cliente('omitir')">forward</i>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="remplazar_omitir_carpetas" class="modal">
+  <div class="modal-content">
+    <h4 id="mensaje_remplazar_omitir_carpetas"></h4>
+    <ul class="collection with-header">
+      <li class="collection-item">
+        <div>Reemplazar archivo destino
+          <a href="javascript:void(0)" class="secondary-content">
+            <i class="material-icons black-text" (click)="rem_or_omi_Carpeta('reemplazar')">forward</i>
+          </a>
+        </div>
+      </li>
+      <li class="collection-item">
+        <div>Omitir este archivo
+          <a href="javascript:void(0)" class="secondary-content">
+            <i class="material-icons black-text" (click)="rem_or_omi_Carpeta('omitir')">forward</i>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="modal_ruta" class="modal">
+  <div class="modal-content">
+    <h4>{{ruta_actual}}</h4>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card #f5f5f5 grey lighten-4">
+        <div class="card-content ">
+          <span class="card-title">Papelera</span>
+
+          <ul class="tabs tabs-fixed-width tab-demo z-depth-1 black-text ">
+            <li class="tab">
+              <a class="active black-text" href="#tab_carpetas" (click)="change_chk('.chk_folders')">Carpetas</a>
+            </li>
+            <li class="tab">
+              <a class="black-text" href="#tab_archivos" (click)="change_chk('.chk_proyect_files')">Archivos Proyectos</a>
+            </li>
+            <li class="tab">
+              <a class="black-text" href="#tab_archivos_cliente" (click)="change_chk('.chk_customer_files')">Archivos Clientes</a>
+            </li>
+          </ul>
+          <div id="tab_carpetas">
+            <br>
+
+            <div class="container-fluid">
+              <div class="row">
+                <form id="filter" class="col s12">
+                  <div class="row">
+                    <div class="input-field col m10 offset-m1 s8">
+                      <i class="material-icons prefix">search</i>
+                      <input id="inputfilter" type="text" class="validate" [(ngModel)]="term" name="term" />
+                      <label for="inputfilter">Buscar</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <table>
+              <thead class="centered">
+                <tr>
+                  <td>Nombre de la Carpeta</td>
+                  <td>Proyecto Vinculado</td>
+                  <td>Ruta</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let v of folders | filterCarpetasPapelera:term let j = index;">
+                  <td>{{v.nombre_carpeta}}</td>
+                  <td>{{v.nombreproyecto}}</td>
+                  <td (click)="ver_ruta(v.ruta)">
+                    <i class="material-icons">timeline</i>
+                  </td>
+                  <td style="text-align: center;">
+                    <input class="chk_folders filled-in" type="checkbox" [attr.id]="'checkbox_folder'+ j" [attr.data-value]="j" />
+                    <label [attr.for]="'checkbox_folder'+ j"></label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="tab_archivos">
+            <br>
+
+            <div class="container-fluid">
+                <div class="row">
+                  <form id="filter2" class="col s12">
+                    <div class="row">
+                      <div class="input-field col m10 offset-m1 s8">
+                        <i class="material-icons prefix">search</i>
+                        <input id="inputfilter2" type="text" class="validate" [(ngModel)]="term2" name="term2" />
+                        <label for="inputfilter2">Buscar</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            <table>
+              <thead class="centered">
+                <tr>
+                  <td>Nombre del Archivo</td>
+                  <td>Proyecto Vinculado</td>
+                  <td>Ruta</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let v of files | filterArchivosProyectoPapelera:term2 let j = index;">
+                  <td>{{v.nombre_archivo}}</td>
+                  <td>{{v.nombre_proyecto}}</td>
+                  <td (click)="ver_ruta(v.ruta_padre)">
+                    <i class="material-icons">timeline</i>
+                  </td>
+                  <td style="text-align: center;">
+                    <input class="chk_proyect_files filled-in" type="checkbox" [attr.id]="'checkbox_proyect_file'+ j" [attr.data-value]="j" />
+                    <label [attr.for]="'checkbox_proyect_file'+ j"></label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="tab_archivos_cliente">
+            <br>
+
+            <div class="container-fluid">
+                <div class="row">
+                  <form id="filter3" class="col s12">
+                    <div class="row">
+                      <div class="input-field col m10 offset-m1 s8">
+                        <i class="material-icons prefix">search</i>
+                        <input id="inputfilter3" type="text" class="validate" [(ngModel)]="term3" name="term3" />
+                        <label for="inputfilter3">Buscar</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            <table>
+              <thead class="centered">
+                <tr>
+                  <td>Nombre del Archivo</td>
+                  <td>Cliente Vinculado</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let v of customer_files | filterArchivosPapelera:term3 let j = index;">
+                  <td>{{v.nombre_archivo}}</td>
+                  <td>{{v.cedula}}</td>
+                  <td style="text-align: center;">
+                    <input class="chk_customer_files filled-in" type="checkbox" [attr.id]="'checkbox_customer_file'+ j" [attr.data-value]="j"
+                    />
+                    <label [attr.for]="'checkbox_customer_file'+ j"></label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

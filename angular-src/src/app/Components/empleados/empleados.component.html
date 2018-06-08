@@ -1,0 +1,181 @@
+<!-- ############################################################################################ -->
+<!-- ########################################## BODY ############################################ -->
+<!-- ############################################################################################ -->
+
+<!-- ########################################## INGRESAR EMPLEADO ############################## -->
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <form (submit)="EmpleadoSubmit()" class="col s12" id="FormAgregar">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="name" type="text" [(ngModel)]="nombre" name="nombre" class="validate" #inputnombre>
+          <label for="name" #LabelNombre>Nombre</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="apellidos" type="text" [(ngModel)]="apellidos" name="apellidos" class="validate" #inputapellidos>
+          <label for="apellidos" #LabelApellidos>Apellidos</label>
+        </div>
+        <div class="input-field col s12">
+          <input maxlength="12" id="dni" type="text" [(ngModel)]="dni" name="dni" class="validate" #inputDni>
+          <label for="dni" #LabelDni>Identificación</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="direccion" type="text" [(ngModel)]="direccion" name="direccion" class="validate" #inputdireccion>
+          <label for="direccion" #Labeldireccion>Dirección</label>
+        </div>
+        <div class="input-field col s12">
+          <input (keypress)="Only_Numbers($event)" id="telefono" type="text" [(ngModel)]="telefono" name="telefono" class="validate"
+            #inputtelefono>
+          <label for="telefono" #LabelTelefono>Telefono</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="correo" type="email" [(ngModel)]="correo" name="correo" class="validate" #inputcorreo>
+          <label for="correo" #LabelCorreo data-error="wrong" data-success="right">Correo</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="usuario" type="text" [(ngModel)]="usuario" name="usuario" class="validate" #inputusuario>
+          <label for="usuario" #LabelUsuario>Usuario</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="contrasena" type='text' [(ngModel)]="contrasena" name="contrasena" class="validate" #inputcontrasena>
+          <label for="contrasena" #LabelContrasena>Contraseña</label>
+        </div>
+        <div class="input-field col s12 hide">
+          <input id="isGerente" type='text' [(ngModel)]="isGerente" active=true disabled=true name="isGerente" class="validate" #inputIsGerente>
+          <label for="isGerente" #LabelIsGerente>Es gerente</label>
+        </div>
+        <!--DATEPICKERS-->
+        <div class="input-field col s12">
+          <input id="fechaEntrada" type='text' [(ngModel)]="fechaEntrada" name="fechaEntrada" class="datepicker" #inputFechaEntrada>
+          <label for="fechaEntrada" #LabelFechaEntrada>Fecha Entrada</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="fechaSalida" type='text' [(ngModel)]="fechaSalida" name="fechaSalida" class="datepicker" #inputFechaSalida>
+          <label for="fechaSalida" #LabelFechaSalida>Fecha Salida (Opcional)</label>
+        </div>
+        <!--END-->
+        <div class="input-field col s12">
+          <select materialize="material_select" [(ngModel)]="tipoSalario" name="tipoSalario" id="tipoSalario" #inputTipoSalario>
+            <option value="" disabled selected>Tipo de salario</option>
+            <option value="Salario Mensual">Salario Mensual</option>
+            <option value="Salario Quincenal">Salario Quincenal</option>
+            <option value="Salario Semanal">Salario Semanal</option>
+          </select>
+        </div>
+        <div class="input-field col s12">
+          <input  id="montoSalario" type='text' [(ngModel)]="montoSalario" name="montoSalario" class="validate"
+            #inputMontoSalario>
+          <label for="montoSalario" #LabelMontoSalario>Salario</label>
+        </div>
+        <div class="right">
+            <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+            <input type="submit" class="btn #0d47a1 blue darken-4 waves-effect waves-blue" value="Guardar">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ########################################## ELIMINAR EMPLEADO ############################### -->
+
+<div id="modal2" class="modal">
+  <div class="modal-content">
+      <h4>¿Desea eliminar este Usuario?</h4>
+      <h5>si confirma esta acción el usuario se borrara permanentemente</h5>
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close btn #0d47a1 red darken-4 waves-effect waves-red">Cancelar</a>
+      <a class="modal-action modal-close btn #0d47a1 blue darken-4 waves-effect waves-blue" (click)="Eliminar()">Confirmar</a>
+  </div>
+</div>
+
+<!-- ########################################## BUSCAR EMPLEADO ################################# -->
+
+<div id="modal3" class="modal">
+  <div class="modal-content">
+    <form (submit)="BuscarPorFiltro()" class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="filtro" type="text" [(ngModel)]="parametro" name="parametro" class="validate">
+          <label for="filtro">{{filtro}}</label>
+        </div>
+        <div class="input-field col s12">
+          <input type="submit" class="#0277bd light-blue darken-3 btn" value="Buscar">
+          <a class="modal-action modal-close waves-effect waves-red btn">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ############################################### TABLA ######################################### -->
+
+<div class="container">
+
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card #f5f5f5 grey lighten-4">
+        <div class="card-content ">
+          <span class="card-title">Gestión de usuarios</span>
+          <div class="input-field col m6 offset-m5 s8">
+            <button type="button" label="Click" (click)="modal1()" class="#0d47a1 blue darken-4 btn">Agregar</button>
+          </div>
+
+          <form id="filter" class="col s12">
+            <div class="row">
+              <div class="input-field col m8 offset-m2 s8">
+                <i class="material-icons prefix">search</i>
+                <input id="inputfilter" type="text" class="validate" [(ngModel)]="term" name="term" />
+                <label for="inputfilter">Buscar</label>
+              </div>
+            </div>
+          </form>
+
+          <table>
+            <thead class="centered">
+              <tr>
+                <td>Nombre</td>
+                <td>Apellidos</td>
+                <td>Identificación</td>
+                <td>Dirección</td>
+                <td>Telefono</td>
+                <td>Correo</td>
+                <td>Usuario</td>
+                <td>Editar</td>
+                <td>Eliminar</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of ax | paginate: {itemsPerPage:5, currentPage: p} | filterEmpleado:term">
+                <td>{{v.nombre}}</td>
+                <td>{{v.apellidos}}</td>
+                <td>{{v.dni}}</td>
+                <td>{{v.direccion}}</td>
+                <td>{{v.telefono}}</td>
+                <td>{{v.correo}}</td>
+                <td>{{v.usuario}}</td>
+                <!-- #####################PRIVILEGIOS CON ICONOS DINAMICOS#####################-->
+                <!-- ####################################DELETED########################################-->
+                <td>
+                  <a class="waves-effect waves-light btn-flat" (click)="Editar(v.dni)">
+                    <i class="tiny material-icons left">create</i>
+                  </a>
+                </td>
+                <td>
+                  <a class="waves-effect waves-light btn-flat" (click)="Confirmar_Eliminar(v.dni)">
+                    <i class="tiny material-icons left">delete</i>
+                  </a>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

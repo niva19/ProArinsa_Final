@@ -1,0 +1,10 @@
+#User{
+    background-color: #880303;
+}
+
+#navegador{
+    background-color: #002080;
+}
+nav ul li.active {
+    background-color: #000053 ;
+  }

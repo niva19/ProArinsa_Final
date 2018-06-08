@@ -1,0 +1,57 @@
+<!-- ############################################################################################ -->
+<!-- ########################################## BODY ############################################ -->
+<!-- ############################################################################################ -->
+
+<!-- https://angular-maps.com/guides/getting-started/ -->
+
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <form (submit)="Submit()" class="col s12" id="FormAgregar">
+      <div class="row">
+        <!-- LATITUD -->
+        <div class="input-field col s12">
+          <input id="latitud" type="text" [(ngModel)]="latitud" name="latitud" class="validate" #inputlatitud>
+          <label for="latitud" #Labellatitud>latitud</label>
+        </div>
+        <!-- LONGITUD -->
+        <div class="input-field col s12">
+          <input id="longitud" type="text" [(ngModel)]="longitud" name="longitud" class="validate" #inputlongitud>
+          <label for="longitud" #Labellongitud>longitud</label>
+        </div>
+        <!-- CANCELAR ACEPTAR -->
+        <div class="right">
+          <input type="submit" class="#0d47a1 blue darken-4 btn" value="Aceptar">
+          <a class="modal-action modal-close waves-effect #757575 grey darken-1 btn">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card #f5f5f5 grey lighten-4">
+        <div class="card-content ">
+          <div class="left">
+            <button type="button" label="Click" (click)="proarinsa()" class="#0d47a1 blue darken-4 btn">PROARINSA</button>
+            <button type="button" label="Click" (click)="modal1()" class="#0d47a1 blue darken-4 btn">digitar coordenadas</button>
+          </div>
+          <!-- this creates a google map on the page with the given lat/lng from -->
+          <!-- the component as the initial center of the map: -->
+          <agm-map [latitude]="lat" [longitude]="lng" [mapTypeId]="tipo" class='mover'>
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+          </agm-map>
+          <!-- TIPO MAPA -->
+          <select materialize="material_select" [(ngModel)]="tipo" name="tipo" #inputmapa>
+            <option value="roadmap">Roadmap</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="satellite">Satellite</option>
+            <option value="terrain">Terrain</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

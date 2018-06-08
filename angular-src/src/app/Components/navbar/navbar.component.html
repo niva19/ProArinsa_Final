@@ -1,0 +1,111 @@
+<ul id='dropdown' class='dropdown-content'>
+    <li>
+      <a (click)="onLogoutClick()">Salir</a>
+    </li>
+  </ul>
+  
+  <!-- ############################################################################################ -->
+  <!-- ########################################## HEADER ########################################## -->
+  <!-- ############################################################################################ -->
+  <div class="container-fluid">
+    <!-- #################################### LOGO ON TOP ######################################### -->
+    <div class="row">
+      <div class="col m1">
+        <img src="assets/img/oie_transparent.png" height="100" width="300">
+      </div>
+    </div>
+    <!-- #################################### NAVIGATION BAR ######################################### -->
+    <nav>
+      <div class="nav-wrapper" id="navegador">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <!-- ################### DROP DOWN TRIGGER ################## -->
+          <!-- ################### NOMBRE DE USUARIO ################## -->
+          <li *ngIf="ingresarService.loggedIn()">
+            <a class="dropdown-button right" id="User" data-activates="dropdown" data-beloworigin="true">{{ingresarService.updateName()}}
+              <i class="material-icons left">account_circle</i>
+              <i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+          <li *ngIf="!ingresarService.loggedIn()" [routerLinkActive]="['active']">
+            <a [routerLink]="['/ingresar']">Ingresar</a>
+          </li>
+        </ul>
+  
+  
+        <!-- #################################### MENU MOVIL ######################################### -->
+        <a href="#" data-activates="mobile-demo" class="button-collapse">
+          <i class="material-icons">menu</i>
+        </a>
+        <!-- #################################### LISTA DE MODULOS ######################################### -->
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <div *ngIf="ingresarService.loggedIn()">
+            <li [routerLinkActive]="['active']">
+              <a [routerLink]="['/cliente']">Clientes</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a [routerLink]="['/proveedores']">Proveedores</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a [routerLink]="['/google']">Google Maps</a>
+            </li>
+            <li *ngIf="ingresarService.isGerente()" [routerLinkActive]="['active']">
+              <a [routerLink]="['/empleado']">Usuarios</a>
+            </li>
+            <li *ngIf="ingresarService.isGerente()" [routerLinkActive]="['active']">
+              <a [routerLink]="['/historial']">Papelera</a>
+            </li>
+            <li *ngIf="ingresarService.isGerente()" [routerLinkActive]="['active']">
+              <a [routerLink]="['/reporte']">Historial</a>
+            </li>
+            <!-- ################### DROP DOWN TRIGGER ################## -->
+            <!-- ################### NOMBRE DE USUARIO ################## -->
+          </div>
+        </ul>
+        <!-- #################################### FIN DE LA VERSION DESKTOP ######################################### -->
+        <!-- #################################### NAVIGATION BAR MOVIL ######################################### -->
+        <ul class="side-nav" id="mobile-demo">
+          <div *ngIf="ingresarService.loggedIn()">
+            <!-- ############### PROFILE PLACE HOLDER ################### -->
+            <li>
+              <a class="#2e7d32" id="User">
+                <i class="tiny material-icons">account_circle</i>{{ingresarService.updateName()}}</a>
+            </li>
+            <!-- ######################################################## -->
+            <li [routerLinkActive]="['active']">
+              <a [routerLink]="['/cliente']">Clientes</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a [routerLink]="['/proveedores']">Proveedores</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a [routerLink]="['/google']">Google Maps</a>
+            </li>
+            <li *ngIf="ingresarService.isGerente()" [routerLinkActive]="['active']">
+              <a [routerLink]="['/empleado']">Usuarios</a>
+            </li>
+            <li *ngIf="ingresarService.isGerente()" [routerLinkActive]="['active']">
+              <a [routerLink]="['/historial']">Papelera</a>
+            </li>
+            <li *ngIf="ingresarService.isGerente()" [routerLinkActive]="['active']">
+              <a [routerLink]="['/reporte']">Historial</a>
+            </li>
+  
+            <!-- ######################################################## -->
+            <!-- ######################### SALIR ######################## -->
+            <li>
+              <a (click)="onLogoutClick()">
+                <i class="tiny material-icons">power_settings_new</i>Salir</a>
+            </li>
+            <li *ngIf="!ingresarService.loggedIn()" [routerLinkActive]="['active']">
+              <a [routerLink]="['/ingresar']">Ingresar</a>
+            </li>
+  
+          </div>
+        </ul>
+        <!-- #################################### FIN DE LA VERSION MOVIL ######################################### -->
+      </div>
+    </nav>
+    <!-- #################################### FIN DE LA VERSION MOVIL ######################################### -->
+  </div>
+  <!-- #################################### FIN NAVIGATION BAR ######################################### -->
+  <!-- #################################### DROPDOWN DE SALIR ######################################### -->

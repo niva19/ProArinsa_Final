@@ -1,0 +1,137 @@
+<!-- ############################################################################################ -->
+<!-- ########################################## BODY ############################################ -->
+<!-- ############################################################################################ -->
+
+<!-- ########################################## INGRESAR PROVEEDOR ############################## -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <form (submit)="ProveedoresSubmit()" class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="empresa" type="text" [(ngModel)]="empresa" name="empresa" class="validate" #inputEmpresa>
+          <label for="empresa" #LabelEmpresa>Empresa</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="contacto" type="text" [(ngModel)]="contacto" name="contacto" class="validate" #inputContacto>
+          <label for="contacto" #LabelContacto>Nombre del Contacto</label>
+        </div>
+        <div class="input-field col s12">
+          <input (keypress)="Only_Numbers($event)" id="telefono" type="text" [(ngModel)]="telefono" name="telefono" class="validate"
+            #inputTelefono>
+          <label for="telefono" #LabelTelefono>Teléfono</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="correo" type="email" [(ngModel)]="correo" name="correo" class="validate" #inputCorreo>
+          <label for="correo" #LabelCorreo data-error="wrong" data-success="right">Correo</label>
+        </div>
+        <div class="input-field col s12">
+          <!--<input id="producto" type="text" [(ngModel)]="producto" name="producto" class="validate" #inputProducto>-->
+          <textarea id="producto" name="producto" [(ngModel)]="producto" class="materialize-textarea" data-length="120" #inputProducto></textarea>
+          <label for="producto" #LabelProducto>Producto</label>
+        </div>
+        <div class="right">
+            <a class="btn #0d47a1 red darken-4 modal-action modal-close waves-effect waves-red">Cancelar</a>
+            <input type="submit" class="btn #0d47a1 blue darken-4 waves-effect waves-blue" value="Guardar">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ########################################## ELIMINAR PROVEEDOR ############################################ -->
+
+<div id="modal2" class="modal">
+  <div class="modal-content">
+    <h4>¿Desea eliminar este Contacto?</h4>
+    <h5>si confirma esta acción el contacto se borrara permanentemente</h5>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close btn #0d47a1 red darken-4 waves-effect waves-red">Cancelar</a>
+    <a class="modal-action modal-close btn #0d47a1 blue darken-4 waves-effect waves-blue" (click)="Eliminar()">Confirmar</a>
+  </div>
+</div>
+
+<!-- ########################################## DETALLES PLANILLA ################################# -->
+
+<div id="modal4" class="modal">
+  <div class="modal-content">
+    <blockquote>Detalle de los productos</blockquote>
+    <ul class="collection" *ngFor="let v of detalles">
+      <li class="collection-item">
+        <strong>Productos: </strong> {{v.producto}}</li>
+    </ul>
+  </div>
+</div>
+<!-- ########################################## BUSCAR PROVEEDOR ############################################ -->
+
+
+<!-- ########################################## GESTION DE PROVEEDORES ################################# -->
+
+<div class="container">
+
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card #f5f5f5 grey lighten-4">
+        <div class="card-content ">
+          <span class="card-title">Gestión de proveedores</span>
+          <div class="input-field col m6 offset-m5 s8">
+            <button type="button" label="Click" (click)="modal1()" class="#0d47a1 blue darken-4 btn">Agregar</button>
+          </div>
+
+          <form id="filter" class="col s12">
+            <div class="row">
+              <div class="input-field col m8 offset-m2 s8">
+                <i class="material-icons prefix">search</i>
+                <input id="inputfilter" type="text" class="validate" [(ngModel)]="term" name="term" />
+                <label for="inputfilter">Buscar</label>
+              </div>
+            </div>
+          </form>
+
+          <!-- ########################################## BUSCAR  ################################# -->
+
+          <table>
+            <thead class="centered">
+              <tr>
+                <td>Empresa</td>
+                <td>Contacto</td>
+                <td>Telefono</td>
+                <td>Correo</td>
+                <td>Detalles</td>
+                <td>Editar</td>
+                <td>Eliminar</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of ax | paginate: {itemsPerPage:5, currentPage: p} | filterProveedor:term">
+                <td>{{v.empresa}}</td>
+                <td>{{v.contacto}}</td>
+                <td>{{v.telefono}}</td>
+                <td>{{v.correo}}</td>
+                <td>
+                  <a class="waves-effect waves-light btn-flat" (click)="Detalles(v)">
+                    <i class="tiny material-icons left">visibility</i>
+                  </a>
+                </td>
+                <td>
+                  <a class="waves-effect waves-light btn-flat" (click)="Editar(v.empresa)">
+                    <i class="tiny material-icons left">create</i>
+                  </a>
+                </td>
+                <td>
+                  <a class="waves-effect waves-light btn-flat" (click)="Confirmar_Eliminar(v.empresa)">
+                    <i class="tiny material-icons left">delete</i>
+                  </a>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
