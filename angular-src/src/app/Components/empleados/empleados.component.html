@@ -55,6 +55,13 @@
           <label for="fechaSalida" #LabelFechaSalida>Fecha Salida (Opcional)</label>
         </div>
         <!--END-->
+        <div class="input-field col s12" id="privilegiodd">
+            <select materialize="material_select" [(ngModel)]="privilegio" name="privilegio" id="privilegio" #inputprivilegio>
+              <option value="" disabled selected>Tipo de Usuario</option>
+              <option value="true">Administrador</option>
+              <option value="false">Normal</option>
+            </select>
+          </div>
         <div class="input-field col s12">
           <select materialize="material_select" [(ngModel)]="tipoSalario" name="tipoSalario" id="tipoSalario" #inputTipoSalario>
             <option value="" disabled selected>Tipo de salario</option>

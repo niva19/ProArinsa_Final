@@ -29,6 +29,7 @@ export class EmpleadosComponent implements OnInit {
   fechaSalida: String
   tipoSalario: String
   montoSalario: String
+  privilegio: String
   switch: Boolean = true
   borrar: String//variable auxiliar utilizada para guardar la cedula cuando se proceda a borrar
   ax: any[];
@@ -129,6 +130,9 @@ export class EmpleadosComponent implements OnInit {
   @ViewChild('inputMontoSalario')
   private inputMontoSalario: ElementRef
 
+  @ViewChild('inputprivilegio')
+  private inputprivilegio: ElementRef
+
   constructor(private EmpService: EmpleadosService, private router: Router, private reporteService: ReporteService, private renderer2: Renderer2) { }
 
   ngOnInit() {
@@ -198,6 +202,9 @@ export class EmpleadosComponent implements OnInit {
 
     this.renderer2.removeClass(this.LabelMontoSalario.nativeElement, "active")
     this.montoSalario = ""
+    this.privilegio = ""
+
+    $("#privilegiodd").css("display","block")
   }
 
   modal1() {
@@ -261,6 +268,9 @@ export class EmpleadosComponent implements OnInit {
       this.montoSalario = data.montosalario
 
       this.switch = false
+
+      $("#privilegiodd").css("display","none")
+
       $('#modal1').modal('open');
     });
   }
@@ -333,8 +343,10 @@ export class EmpleadosComponent implements OnInit {
       modulo: 'Usuarios',
       alterado: this.dni
     }
-    if (this.ValidateForm()) {
-      if (this.switch) {//si el switch esta en true guarda
+
+    if (this.switch) {//si el switch esta en true guarda
+      if (this.ValidateForm()) {
+        empleado.isgerente = (this.privilegio == 'true')
         this.EmpService.GuardarEmpleado(empleado).subscribe(data => {
           if (data.success) {
             this.getAll();
@@ -354,7 +366,12 @@ export class EmpleadosComponent implements OnInit {
           }
         });
       }
-      else {//si el switch esta en false edita
+      else {
+        Materialize.toast('Complete los espacios, para continuar', 3000, 'red rounded')
+      }
+    }
+    else {//si el switch esta en false edita
+      if (this.ValidateForm2()) {
         this.EmpService.EditarEmpleado(empleado).subscribe(data => {
           this.getAll();
           this.switch = true;
@@ -370,10 +387,13 @@ export class EmpleadosComponent implements OnInit {
           //END OF history
         });
       }
+      else {
+        Materialize.toast('Complete los espacios, para continuar', 3000, 'red rounded')
+      }
+
     }
-    else {
-      Materialize.toast('Complete los espacios, para continuar', 3000, 'red rounded')
-    }
+
+
 
   }
 
@@ -388,6 +408,36 @@ export class EmpleadosComponent implements OnInit {
   }
 
   ValidateForm() {
+    if (this.inputnombre.nativeElement.value == '')
+      return false
+    if (this.inputapellidos.nativeElement.value == '')
+      return false
+    if (this.inputDni.nativeElement.value == '')
+      return false
+    if (this.inputdireccion.nativeElement.value == '')
+      return false
+    if (this.inputTelefono.nativeElement.value == '')
+      return false
+    if (this.inputcorreo.nativeElement.value == '')
+      return false
+    if (this.inputUsuario.nativeElement.value == '')
+      return false
+    if (this.inputContrasena.nativeElement.value == '')
+      return false
+    if (this.inputIsGerente.nativeElement.value == '')
+      return false
+    if ($('#fechaEntrada').val() == '')
+      return false
+    if (this.inputTipoSalario.nativeElement.value == '')
+      return false
+    if (this.inputprivilegio.nativeElement.value == '')
+      return false
+    if (this.inputMontoSalario.nativeElement.value == '')
+      return false
+    return true
+  }
+
+  ValidateForm2() {
     if (this.inputnombre.nativeElement.value == '')
       return false
     if (this.inputapellidos.nativeElement.value == '')
