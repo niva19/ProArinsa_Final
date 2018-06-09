@@ -23,6 +23,8 @@ export class ClienteArchivosComponent implements OnInit {
   archivos: any[]
   ruta: String
   archivos_eliminar: any[] = []
+  term: any
+  p: any
 
   @ViewChild('myInput')
   myInputVariable: any;

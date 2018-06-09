@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map} from 'rxjs/operators';
 import { Observable} from 'rxjs';
-
+import * as global from './globals';
 import * as CryptoJS from 'crypto-js';
 import { mapChildrenIntoArray } from '@angular/router/src/url_tree';
 
@@ -21,11 +21,11 @@ export class IngresarService {
   constructor(private http: HttpClient) { }
 
   logear(empleado): Observable<any> {
-    return this.http.post('http://localhost:3000/api/empleados', empleado, httpOptions).pipe(map(val => val))
+    return this.http.post(global.ROUTE + '/api/empleados', empleado, httpOptions).pipe(map(val => val))
   }
 
   getAllEmployers() {
-    return this.http.get('http://localhost:3000/api/getemployees', httpOptions).pipe(map(val => val))
+    return this.http.get(global.ROUTE + '/api/getemployees', httpOptions).pipe(map(val => val))
   }
 
   store(value) {

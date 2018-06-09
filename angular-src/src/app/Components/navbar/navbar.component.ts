@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
 
   username: String
 
-  constructor(private ingresarService: IngresarService, private router: Router) {
+  constructor(public ingresarService: IngresarService, private router: Router) {
 
   }
 

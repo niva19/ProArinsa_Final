@@ -24,6 +24,8 @@ export class ClienteComponent implements OnInit {
   detalles: any[];
   pk_cliente: String
   ruta: String
+  term: any
+  p: any
 
   @ViewChild('buscador')
   private buscador: ElementRef

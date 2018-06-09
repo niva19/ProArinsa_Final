@@ -36,6 +36,8 @@ export class EmpleadosComponent implements OnInit {
   filtro: any
   parametro: String
   empleado_eliminar: String
+  term: any
+  p: any
 
   @ViewChild('empleadoSeleccionado')
   private empleadoSeleccionado: ElementRef

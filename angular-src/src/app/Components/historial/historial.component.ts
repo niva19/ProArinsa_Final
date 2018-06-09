@@ -30,6 +30,10 @@ export class HistorialComponent implements OnInit {
   chk: String = ".chk_folders"
   ruta_actual: String
   repeat_customer_file: any
+  term: any
+  p: any
+  term2: any
+  term3: any
 
 
   constructor(private Archivos_Service: ArchivosService,

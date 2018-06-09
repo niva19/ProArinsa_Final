@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AuthGuard } from './Guards/auth.guard'
 import { GerenteGuard } from './Guards/gerente.guard'
+import { LoggedGuard } from './Guards/logged.guard'
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -61,16 +62,16 @@ const appRoutes: Routes = [
   { path: '', component: ClienteComponent, canActivate: [AuthGuard]},
   { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
   { path: 'inicio', component: MainPageComponent },
-  { path: 'ingresar', component: IngresarComponent },
+  { path: 'ingresar', component: IngresarComponent, canActivate: [LoggedGuard] },
   { path: 'historial', component: HistorialComponent, canActivate: [AuthGuard, GerenteGuard] },
   { path: 'archivos', component: ArchivosComponent },
   { path: 'gerente_bridge', component: GerenteBridgeComponent },
   { path: 'empleado', component: EmpleadosComponent, canActivate: [AuthGuard, GerenteGuard] },
   { path: 'proyecto', component: ProyectosComponent, canActivate: [AuthGuard] },
   { path: 'google', component: GoogleComponent, canActivate: [AuthGuard] },
-  { path: 'planilla', component: PlanillaComponent },
-  { path: 'proveedores', component: ProveedoresComponent },
-  { path: 'reporte', component: ReporteComponent },
+  { path: 'planilla', component: PlanillaComponent, canActivate: [AuthGuard]},
+  { path: 'proveedores', component: ProveedoresComponent, canActivate: [AuthGuard] },
+  { path: 'reporte', component: ReporteComponent, canActivate: [AuthGuard, GerenteGuard] },
   { path: 'cliente_archivos', component: ClienteArchivosComponent}
 ]
 
@@ -112,7 +113,7 @@ const appRoutes: Routes = [
     NgxChildProcessModule,
     MaterializeModule,
     NgxPaginationModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCojg33P1ZSFRgnjLFJqAtivnT1bm_krRU'
     }),
@@ -120,7 +121,7 @@ const appRoutes: Routes = [
     HttpClientModule
   ],
   providers: [ProveedoresService, PlanillaService, ClientesService, IngresarService, EmpleadosService, ClienteArchivosService,
-    ProyectosService, ReporteService, CarpetasService, ArchivosService, AuthGuard, GerenteGuard, CommandsService],
+  ProyectosService, ReporteService, CarpetasService, ArchivosService, AuthGuard, GerenteGuard, CommandsService, LoggedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

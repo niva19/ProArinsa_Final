@@ -34,6 +34,9 @@ export class ArchivosComponent implements OnInit {
   flag: boolean = true
   flag_carpeta: boolean = true
   current_tab: boolean = true
+  term: any
+  p: any
+  term2: any
 
   @ViewChild('myInput')
   myInputVariable: any;

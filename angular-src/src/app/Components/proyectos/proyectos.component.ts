@@ -31,6 +31,10 @@ export class ProyectosComponent implements OnInit {
   detalles: any[]
   ax: any[]
   ruta: String
+  term: any
+  p: any
+  fechaInicio: any
+  fechaFinaliza: any
 
   filtro: any
   parametro: String

@@ -26,6 +26,8 @@ export class ProveedoresComponent implements OnInit {
   parametro: String
   detalles: any
   planilla_eliminar: String
+  term: any
+  p: any
 
   @ViewChild('buscador')
   private buscador: ElementRef

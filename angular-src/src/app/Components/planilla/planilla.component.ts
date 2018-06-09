@@ -27,6 +27,10 @@ export class PlanillaComponent implements OnInit {
   detalles: any
   nombreproyecto: String = localStorage.getItem("nombre_proyecto")
   planilla_eliminar: String
+  term: any
+  p: any
+  fechaEntrada: any
+  fechaSalida: any
 
 
   @ViewChild('buscador')

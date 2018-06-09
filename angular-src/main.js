@@ -1,25 +1,47 @@
-var {app, BrowserWindow} = require('electron');
+var { session, app, BrowserWindow } = require('electron');
 
 let win = null;
 
-app.on('ready', () =>{
+app.on('ready', () => {
 
-    win = new BrowserWindow({width: 1000, height: 600, webPreferences: {
-        nodeIntegration: true }}); //nodeIntegration en false por si da errores
+    win = new BrowserWindow({
+        width: 1200,
+        height: 720,
+        webPreferences: {
+            nodeIntegration: false
+        }
+    });
 
-    win.loadURL('http://localhost:4200');
+    win.webContents.on('crashed', () => {
+        win.destroy();
+        createWindow();
+    });
 
-    win.on('closed',() =>{
-        win = null;
-    })
+    var URL=`file://${__dirname}/dist/index.html`
+    console.log(URL);
+    win.loadURL(URL);
+
+    win.on('close', function () { //   <---- Catch close event
+        win.webContents.session.clearStorageData(
+        {
+            storages: [
+                'websql',
+                'localstorage'
+            ]
+        },
+            function () {
+                console.log('LocalStorage cleared')
+            }
+        );
+    });
 })
 
-app.on('activate', () =>{
-    if(win == null) createWindow()
+app.on('activate', () => {
+    if (win == null) createWindow()
 })
 
-app.on('window-all-closed',() =>{
-    if(process.platform != 'darwin'){
+app.on('window-all-closed', () => {
+    if (process.platform != 'darwin') {
         app.quit();
     }
 })

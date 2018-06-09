@@ -17,6 +17,8 @@ export class GoogleComponent {
   lat: string | number = 9.9923673;
   lng: string | number = -84.1241387;
   tipo: string = 'roadmap';
+  latitud: any
+  longitud: any
 
   @ViewChild('Labellatitud')
   private Labellatitud: ElementRef
