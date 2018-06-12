@@ -2,7 +2,18 @@ var promise = require('bluebird');
 
 var options = {
   // Initialization Options
-  promiseLib: promise
+  promiseLib: promise,
+  // global event notification;
+  error: (error, e) => {
+    if (e.cn) {
+        // A connection-related error;
+        //
+        // Connections are reported back with the password hashed,
+        // for safe errors logging, without exposing passwords.
+        console.log('CN:', e.cn);
+        console.log('EVENT:', error.message || error);
+    }
+  }
 };
 
 var pgp = require('pg-promise')(options);
@@ -12,6 +23,17 @@ var connectionString = 'postgres://postgres:l53s@localhost:5432/PROARINSADB';
 //var connectionString = 'postgres://postgres:mio@localhost:5432/PROARINSADB';
 
 var db = pgp(connectionString);
+
+db.connect()
+    .then(obj => {
+        obj.done(); // success, release the connection;
+        console.log('Connection established');
+    })
+    .catch(error => {
+        process.stdout.write('\033c');
+        console.log('ERROR:', error.message || error);
+        console.log('Verify if postgreSQL service is running..');
+    });
 
 // METER CADA QUERIE DE CADA TABLA EN UNA .JS POR SEPARADO !!!!!!!!!!!!!!!!!!!!!!!!!
 

@@ -24,7 +24,6 @@ export class EmpleadosComponent implements OnInit {
   correo: String
   usuario: String
   contrasena: String
-  isGerente: String
   fechaEntrada: String
   fechaSalida: String
   tipoSalario: String
@@ -90,9 +89,6 @@ export class EmpleadosComponent implements OnInit {
   @ViewChild('inputnombre')
   private inputnombre: ElementRef
 
-  @ViewChild('inputPrivilegio')
-  private inputPrivilegio: ElementRef
-
   @ViewChild('inputapellidos')
   private inputapellidos: ElementRef
 
@@ -107,9 +103,6 @@ export class EmpleadosComponent implements OnInit {
 
   @ViewChild('inputtelefono')
   private inputTelefono: ElementRef
-
-  @ViewChild('inputprivilegios')
-  private inputPrivilegios: ElementRef
 
   @ViewChild('inputusuario')
   private inputUsuario: ElementRef
@@ -191,9 +184,6 @@ export class EmpleadosComponent implements OnInit {
     this.renderer2.removeClass(this.LabelContrasena.nativeElement, "active")
     this.contrasena = ""
 
-    //this.renderer2.removeClass(this.LabelIsGerente.nativeElement, "active")
-    this.isGerente = "no"
-
     this.renderer2.removeClass(this.LabelFechaEntrada.nativeElement, "active")
     $('#fechaEntrada').val("")
 
@@ -248,15 +238,10 @@ export class EmpleadosComponent implements OnInit {
       this.usuario = data.usuario
 
       this.renderer2.setAttribute(this.LabelContrasena.nativeElement, "class", "active")
+
       this.contrasena = data.contrasena
 
-      this.renderer2.setAttribute(this.LabelIsGerente.nativeElement, "class", "active")
-      if (data.isgerente) {
-        this.isGerente = 'si'
-      }
-      else {
-        this.isGerente = 'no'
-      }
+      this.privilegio = data.isgerente
 
       this.renderer2.setAttribute(this.LabelFechaEntrada.nativeElement, "class", "active")
       $('#fechaEntrada').val(data.fechaentrada)
@@ -270,8 +255,6 @@ export class EmpleadosComponent implements OnInit {
       this.montoSalario = data.montosalario
 
       this.switch = false
-
-      $("#privilegiodd").css("display","none")
 
       $('#modal1').modal('open');
     });
@@ -318,12 +301,6 @@ export class EmpleadosComponent implements OnInit {
   }
 
   EmpleadoSubmit() {
-    var x
-    if (this.isGerente == 'si') {
-      x = true
-    } else {
-      x = false
-    }
     const empleado = {
       nombre: this.nombre,
       apellidos: this.apellidos,
@@ -333,7 +310,7 @@ export class EmpleadosComponent implements OnInit {
       correo: this.correo,
       usuario: this.usuario,
       contrasena: this.contrasena,
-      isgerente: x,
+      isgerente: (this.privilegio == 'true'),
       fechaentrada: $('#fechaEntrada').val(),
       fechasalida: $('#fechaSalida').val(),
       tiposalario: this.tipoSalario,
@@ -373,7 +350,7 @@ export class EmpleadosComponent implements OnInit {
       }
     }
     else {//si el switch esta en false edita
-      if (this.ValidateForm2()) {
+      if (this.ValidateForm()) {
         this.EmpService.EditarEmpleado(empleado).subscribe(data => {
           this.getAll();
           this.switch = true;
@@ -394,9 +371,6 @@ export class EmpleadosComponent implements OnInit {
       }
 
     }
-
-
-
   }
 
   Only_Numbers(event: any) {
@@ -426,41 +400,11 @@ export class EmpleadosComponent implements OnInit {
       return false
     if (this.inputContrasena.nativeElement.value == '')
       return false
-    if (this.inputIsGerente.nativeElement.value == '')
-      return false
     if ($('#fechaEntrada').val() == '')
       return false
     if (this.inputTipoSalario.nativeElement.value == '')
       return false
     if (this.inputprivilegio.nativeElement.value == '')
-      return false
-    if (this.inputMontoSalario.nativeElement.value == '')
-      return false
-    return true
-  }
-
-  ValidateForm2() {
-    if (this.inputnombre.nativeElement.value == '')
-      return false
-    if (this.inputapellidos.nativeElement.value == '')
-      return false
-    if (this.inputDni.nativeElement.value == '')
-      return false
-    if (this.inputdireccion.nativeElement.value == '')
-      return false
-    if (this.inputTelefono.nativeElement.value == '')
-      return false
-    if (this.inputcorreo.nativeElement.value == '')
-      return false
-    if (this.inputUsuario.nativeElement.value == '')
-      return false
-    if (this.inputContrasena.nativeElement.value == '')
-      return false
-    if (this.inputIsGerente.nativeElement.value == '')
-      return false
-    if ($('#fechaEntrada').val() == '')
-      return false
-    if (this.inputTipoSalario.nativeElement.value == '')
       return false
     if (this.inputMontoSalario.nativeElement.value == '')
       return false
